@@ -1,0 +1,30 @@
+{
+  "name": "narrowing",
+  "version": "1.0.0",
+  "description": "TypeScript tiny narrowing helpers you better use.",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  },
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "cesium"
+  ],
+  "author": "nshen <nshen121@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nshen/narrowing"
+  },
+  "bugs": {
+    "url": "https://github.com/nshen/narrowing/issues"
+  }
+}
