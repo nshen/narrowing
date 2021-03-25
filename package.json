@@ -1,6 +1,6 @@
 {
   "name": "narrowing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript tiny narrowing helpers you better use.",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,9 +14,10 @@
     "typescript": "^4.2.3"
   },
   "keywords": [
-    "vite",
-    "vite-plugin",
-    "cesium"
+    "typescript",
+    "type",
+    "type narrow",
+    "type guards"
   ],
   "author": "nshen <nshen121@gmail.com>",
   "license": "MIT",
