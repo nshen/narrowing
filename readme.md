@@ -32,6 +32,8 @@ if (isXXX(a)) {
 - isFunction
 - isInstance
 - isArray
+- has
+- kind
 
 ```typescript
 import {
@@ -45,7 +47,9 @@ import {
   isFunction,
   isInstance,
   isArray,
-  isNil
+  isNil,
+  has,
+  kind
 } from 'narrowing';
 
 let a: unknown;
@@ -99,7 +103,7 @@ if (!isNil(b)) {
 }
 ```
 
-### Type predicates: `has()`
+## Type predicates: `has()`
 
 ```typescript
 type Bird = { fly: () => {} };
@@ -126,9 +130,47 @@ if (isCat(pet)) {
 }
 ```
 
+## Discriminated unions: `kind()`
+
+```typescript
+interface Square {
+  kind: 'square';
+  size: number;
+}
+interface Rectangle {
+  kind: 'rectangle';
+  width: number;
+  height: number;
+}
+interface Circle {
+  kind: 'circle';
+  radius: number;
+}
+
+const isSquare = kind<Square>('square');
+const isRectangle = kind<Rectangle>('circle');
+const isCircle = kind<Circle>('circle');
+
+let s = {} as any;
+
+if (isSquare(s)) {
+  console.log(s.size);
+}
+
+if (isRectangle(s)) {
+  console.log(s.height);
+}
+
+if (isCircle(s)) {
+  console.log(s.radius);
+}
+```
+
 ## Version
 
 - 1.1.0
   - add `has()`
 - 1.1.1
   - `has()` accept multiple params
+- 1.2.0
+  - add `kind()`

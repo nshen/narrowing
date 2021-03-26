@@ -52,3 +52,9 @@ export function has<T>(...args: Array<keyof T>) {
     return args.every((k) => !isNil((value as any)[k]));
   };
 }
+
+export function kind<T>(uid: string, uniProp: string = 'kind') {
+  return function (value: unknown): value is T {
+    return isString((value as any)[uniProp]) && (value as any)[uniProp] === uid;
+  };
+}

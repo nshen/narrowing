@@ -10,8 +10,9 @@ import {
   isInstance,
   isArray,
   isNil,
-  has
-} from './index';
+  has,
+  kind
+} from '../src/index';
 
 let a: unknown;
 
@@ -19,7 +20,7 @@ if (isString(a)) a.toLocaleLowerCase();
 if (isNumber(a)) a.toFixed();
 if (isBigInt(a)) a.toString();
 if (isBoolean(a)) a.valueOf();
-if (isSymbol(a)) a.description;
+if (isSymbol(a)) a.toString();
 if (isUndefined(a)) {
   a; // undefined
 }
@@ -67,20 +68,57 @@ if (!isNil(b)) {
  *  has()
  */
 
-type Fish = { swim: () => {} };
 type Bird = { fly: () => {} };
+type Cat = { run: () => {}; meow: () => {} };
+type Dog = { run: () => {} };
 
-function getPet(): any {
-  return {} as any;
-}
-let pet: Fish | Bird = getPet();
+let pet = {} as any;
 
 const isBird = has<Bird>('fly');
-const isFish = has('swim');
+const isDogOrCat = has<Dog | Cat>('run');
+const isCat = has<Cat>('run', 'meow');
 
 if (isBird(pet)) {
   pet.fly();
 }
-if (isFish(pet)) {
-  pet.swim();
+
+if (isDogOrCat(pet)) {
+  pet.run();
+}
+
+if (isCat(pet)) {
+  pet.meow();
+}
+// ------------
+
+interface Square {
+  kind: 'square';
+  size: number;
+}
+interface Rectangle {
+  kind: 'rectangle';
+  width: number;
+  height: number;
+}
+interface Circle {
+  kind: 'circle';
+  radius: number;
+}
+
+const isSquare = kind<Square>('square');
+const isRectangle = kind<Rectangle>('circle');
+const isCircle = kind<Circle>('circle');
+
+let s = {} as any;
+
+if (isSquare(s)) {
+  console.log(s.size);
+}
+
+if (isRectangle(s)) {
+  console.log(s.height);
+}
+
+if (isCircle(s)) {
+  console.log(s.radius);
 }
