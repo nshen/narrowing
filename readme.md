@@ -7,7 +7,7 @@ TypeScript tiny [narrowing ](https://www.typescriptlang.org/docs/handbook/2/narr
 ## Install
 
 ```bash
-npm i narrowing -D # yarn add narrowing -D
+npm i narrowing  # yarn add narrowing
 ```
 
 ## Usage
@@ -20,6 +20,8 @@ if (isXXX(a)) {
 
 ## Functions
 
+### typeof narrowing
+
 - isString
 - isNumber
 - isBigInt
@@ -27,10 +29,10 @@ if (isXXX(a)) {
 - isSymbol
 - isUndefined
 - isNull
+- isNil
 - isFunction
 - isInstance
 - isArray
-- isNil
 
 ## Demo
 

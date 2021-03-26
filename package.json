@@ -17,7 +17,8 @@
     "typescript",
     "type",
     "type narrow",
-    "type guards"
+    "type guards",
+    "narrowing"
   ],
   "author": "nshen <nshen121@gmail.com>",
   "license": "MIT",
