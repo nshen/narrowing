@@ -4,11 +4,13 @@
   "description": "TypeScript tiny narrowing helpers you better use.",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && yarn build:cjs",
+    "build:cjs": "tsc -p tsconfig.cjs.json"
   },
   "devDependencies": {
     "typescript": "^4.2.3"
