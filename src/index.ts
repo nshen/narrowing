@@ -47,8 +47,8 @@ export function isArray<T>(value: unknown): value is Array<T> {
   return Array.isArray(value);
 }
 
-export function has<T>(key: keyof T) {
-  return function is(b: unknown): b is T {
-    return !isNil((b as any)[key]);
+export function has<T>(...args: Array<keyof T>) {
+  return function (value: unknown): value is T {
+    return args.every((k) => !isNil((value as any)[k]));
   };
 }
