@@ -21,8 +21,6 @@ if (isXXX(a)) {
 
 ## Functions
 
-### typeof narrowing
-
 - isString
 - isNumber
 - isBigInt
@@ -95,4 +93,40 @@ if (isInstance(a, TestClass)) {
 if (isArray<string>(a)) {
   a[0].trim();
 }
+
+let b: TestClass | undefined | null;
+// b.m(); // Error: Object is possibly 'null' or 'undefined'.ts(2533)
+if (!isNil(b)) {
+  b.m(); // no Error any more
+}
 ```
+
+### has()
+
+```typescript
+type Fish = { swim: () => {} };
+type Bird = { fly: () => {} };
+
+function getPet(): any {
+  return {} as any;
+}
+
+//---------------
+
+let pet: Fish | Bird = getPet(); // Fish | Bird
+
+const isBird = has<Bird>('fly');
+const isFish = has('swim');
+
+if (isBird(pet)) {
+  pet.fly();
+}
+if (isFish(pet)) {
+  pet.swim();
+}
+```
+
+## Version
+
+- 1.1.0
+  - add `has()`
