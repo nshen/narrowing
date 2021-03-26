@@ -9,7 +9,8 @@ import {
   isFunction,
   isInstance,
   isArray,
-  isNil
+  isNil,
+  is
 } from './index';
 
 let a: unknown;
@@ -55,3 +56,42 @@ if (isInstance(a, TestClass)) {
 if (isArray<string>(a)) {
   a[0].trim();
 }
+
+let b: TestClass | undefined | null;
+
+b.m(); // Error: Object is possibly 'null' or 'undefined'.ts(2533)
+
+type Fish = { swim: () => {} };
+type Bird = { fly: () => {} };
+
+function getPet(): Fish | Bird {
+  return {} as any;
+}
+let pet: Fish | Bird = getPet();
+
+// const isFish = is<Fish>(pet, (pet)=>{
+//   return !isNil((pet as Fish).swim);
+// })
+
+// if(isFish(pet)){
+
+//   pet
+
+// }
+
+export function has<T>(key: keyof T) {
+  return function is(b: unknown): b is T {
+    return !isNil((b as any)[key]);
+  };
+}
+
+const isFish = has('swim');
+
+if (has('swim')) {
+}
+
+// const isFish = is<Fish>((p)=>{ return !isNil((p as any).swim)})
+
+// function isFish2(p):p is Fish{
+//  return !isNil((p as any).swim)
+// }

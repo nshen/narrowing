@@ -50,3 +50,16 @@ export function isArray<T>(value: unknown): value is Array<T> {
 // export function as<T>(value: unknown): value is T {
 //   return true;
 // }
+
+// export function is<T>(
+//   typeFuc: (v: unknown) => boolean,
+//   value: unknown
+// ): value is T {
+//   return typeFuc(value);
+// }
+
+export function is<T>(typeFunc: (v: unknown) => boolean) {
+  return function is(b: unknown): b is T {
+    return typeFunc(b);
+  };
+}

@@ -15,6 +15,7 @@ npm i narrowing  # yarn add narrowing
 ```typescript
 let a: unknown;
 if (isXXX(a)) {
+  // TypeScritp know your type here!
 }
 ```
 
