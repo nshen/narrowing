@@ -33,8 +33,6 @@ if (isXXX(a)) {
 - isInstance
 - isArray
 
-## Demo
-
 ```typescript
 import {
   isString,
@@ -101,28 +99,30 @@ if (!isNil(b)) {
 }
 ```
 
-### has()
+### Type predicates: `has()`
 
 ```typescript
-type Fish = { swim: () => {} };
 type Bird = { fly: () => {} };
+type Cat = { run: () => {}; meow: () => {} };
+type Dog = { run: () => {} };
 
-function getPet(): any {
-  return {} as any;
-}
+let pet = {} as any;
 
-//---------------
-
-let pet: Fish | Bird = getPet(); // Fish | Bird
-
+// type predicates
 const isBird = has<Bird>('fly');
-const isFish = has('swim');
+const isDogOrCat = has<Dog | Cat>('run');
+const isCat = has<Cat>('run', 'meow');
 
 if (isBird(pet)) {
-  pet.fly();
+  pet.fly(); // Bird
 }
-if (isFish(pet)) {
-  pet.swim();
+
+if (isDogOrCat(pet)) {
+  pet.run(); // Dog | Cat
+}
+
+if (isCat(pet)) {
+  pet.meow(); // Cat
 }
 ```
 
@@ -130,3 +130,5 @@ if (isFish(pet)) {
 
 - 1.1.0
   - add `has()`
+- 1.1.1
+  - `has()` accept multiple params
