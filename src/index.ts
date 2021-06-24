@@ -7,7 +7,7 @@ export function isNumber(value: unknown): value is number {
 }
 
 export function isBigInt(value: unknown): value is bigint {
-  return typeof value === 'boolean';
+  return typeof value === 'bigint';
 }
 
 export function isBoolean(value: unknown): value is boolean {
