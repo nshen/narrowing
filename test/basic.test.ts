@@ -1,20 +1,26 @@
 import {
-  isString,
-  isNumber,
+  has,
+  isArray,
   isBigInt,
   isBoolean,
-  isSymbol,
-  isUndefined,
-  isNull,
   isFunction,
   isInstance,
-  isArray,
   isNil,
-  has,
+  isNull,
+  isNumber,
+  isString,
+  isSymbol,
+  isUndefined,
+  isValidObject,
   kind
 } from '../src/index';
 
 let a: unknown;
+
+// TODO: basic test
+test('test', () => {
+  expect(isUndefined(a)).toBe(true);
+});
 
 if (isString(a)) a.toLocaleLowerCase();
 if (isNumber(a)) a.toFixed();
@@ -32,19 +38,17 @@ if (isNil(a)) {
   a; // null | undefined
 }
 
-function test(a: string, b: number): boolean {
+function testAAA(a: string, b: number): boolean {
   return true;
 }
 
-if (isFunction<typeof test>(a)) {
+if (isFunction<typeof testAAA>(a)) {
   a('11', 1);
 }
 
 if (isInstance(a, Date)) {
   a.getFullYear();
 }
-
-isInstance(a, DelayNode);
 
 class TestClass {
   m() {}
@@ -121,4 +125,14 @@ if (isRectangle(s)) {
 
 if (isCircle(s)) {
   console.log(s.radius);
+}
+
+let testobj: any = {};
+let schemaAj = {
+  x: isNumber,
+  str: isString
+};
+if (isValidObject(testobj, schemaAj)) {
+  testobj.x;
+} else {
 }
