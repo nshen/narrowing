@@ -21,6 +21,8 @@ if (isXXX(a)) {
 
 ## Functions
 
+Basic:
+
 - isString
 - isNumber
 - isBigInt
@@ -32,8 +34,13 @@ if (isXXX(a)) {
 - isFunction
 - isInstance
 - isArray
-- has
-- kind
+- isObject
+
+Advanced:
+
+- [has](#has)
+- [kind](#kind)
+- [isValidObject](#isvalidobject)
 
 ```typescript
 import {
@@ -103,7 +110,11 @@ if (!isNil(b)) {
 }
 ```
 
-## Type predicates: `has()`
+## `has()`
+
+check if a type has a property
+
+[TypeScript Handbook / Using type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates)
 
 ```typescript
 type Bird = { fly: () => {} };
@@ -130,7 +141,9 @@ if (isCat(pet)) {
 }
 ```
 
-## Discriminated unions: `kind()`
+## `kind()`
+
+[TypeScript handbook / Discriminated unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)
 
 ```typescript
 interface Square {
@@ -166,11 +179,67 @@ if (isCircle(s)) {
 }
 ```
 
+## `isValidObject()`
+
+Basic schema validation
+
+```ts
+let testObj: any = {};
+
+const schema = {
+  x: isNumber,
+  str: isString
+};
+
+if (isValidObject(testObj, schema)) {
+  /*
+    now typescript know your testObj type is
+    let testObj: { x: number; str: string; }
+   */
+}
+```
+
+custom validator
+
+```ts
+let message: unknown = {
+  code: 200,
+  msg: 'success',
+  records: [
+    { id: 1, name: 'aaa' },
+    { id: 2, name: 'bbb' },
+    { id: 3, name: 'ccc' }
+  ]
+};
+
+const messageSchema = {
+  // custom validator
+  code: (value: unknown): value is 200 => {
+    return value === 200;
+  },
+  msg: isString,
+  records: isArray
+};
+
+if (isValidObject(message, messageSchema)) {
+  /*
+        let message: {
+            code: 200;
+            msg: string;
+            records: unknown[];
+        }
+  */
+  message;
+}
+```
+
 ## Version
 
 - 1.1.0
   - add `has()`
 - 1.1.1
   - `has()` accept multiple params
-- 1.2.0
+- 1.2.1
   - add `kind()`
+- 1.3.0
+  - add `isObject()`, `isValidObject()`
