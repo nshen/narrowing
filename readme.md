@@ -245,4 +245,4 @@ if (isSuccess(message)) {
   - add `isObject()`, `isValidObject()`
 - 1.4.0
   - replace ~~`isValidObject()`~~ with `schema()`
-  - add `schema()`
+  - add `literal()`
