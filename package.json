@@ -1,6 +1,6 @@
 {
   "name": "narrowing",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "TypeScript tiny narrowing helpers you better use.",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,5 +1,4 @@
 import {
-  has,
   isArray,
   isBigInt,
   isBoolean,
@@ -8,19 +7,13 @@ import {
   isNil,
   isNull,
   isNumber,
+  isObject,
   isString,
   isSymbol,
-  isUndefined,
-  isValidObject,
-  kind
+  isUndefined
 } from '../src/index';
 
 let a: unknown;
-
-// TODO: basic test
-test('test', () => {
-  expect(isUndefined(a)).toBe(true);
-});
 
 if (isString(a)) a.toLocaleLowerCase();
 if (isNumber(a)) a.toFixed();
@@ -28,12 +21,9 @@ if (isBigInt(a)) a.toString();
 if (isBoolean(a)) a.valueOf();
 if (isSymbol(a)) a.toString();
 if (isUndefined(a)) {
-  a; // undefined
 }
 if (isNull(a)) {
-  a; // null
 }
-
 if (isNil(a)) {
   a; // null | undefined
 }
@@ -67,72 +57,14 @@ let b: TestClass | undefined | null;
 if (!isNil(b)) {
   b.m(); // no Error any more
 }
-
-/*
- *  has()
- */
-
-type Bird = { fly: () => {} };
-type Cat = { run: () => {}; meow: () => {} };
-type Dog = { run: () => {} };
-
-let pet = {} as any;
-
-const isBird = has<Bird>('fly');
-const isDogOrCat = has<Dog | Cat>('run');
-const isCat = has<Cat>('run', 'meow');
-
-if (isBird(pet)) {
-  pet.fly();
+if (isObject(a)) {
+  //   let a: {
+  //     [key: string]: unknown;
+  //   };
+  a;
 }
 
-if (isDogOrCat(pet)) {
-  pet.run();
-}
-
-if (isCat(pet)) {
-  pet.meow();
-}
-// ------------
-
-interface Square {
-  kind: 'square';
-  size: number;
-}
-interface Rectangle {
-  kind: 'rectangle';
-  width: number;
-  height: number;
-}
-interface Circle {
-  kind: 'circle';
-  radius: number;
-}
-
-const isSquare = kind<Square>('square');
-const isRectangle = kind<Rectangle>('circle');
-const isCircle = kind<Circle>('circle');
-
-let s = {} as any;
-
-if (isSquare(s)) {
-  console.log(s.size);
-}
-
-if (isRectangle(s)) {
-  console.log(s.height);
-}
-
-if (isCircle(s)) {
-  console.log(s.radius);
-}
-
-let testobj: any = {};
-let schemaAj = {
-  x: isNumber,
-  str: isString
-};
-if (isValidObject(testobj, schemaAj)) {
-  testobj.x;
-} else {
-}
+// TODO: basic test
+test('test', () => {
+  expect(isUndefined(a)).toBe(true);
+});

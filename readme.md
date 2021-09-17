@@ -14,6 +14,7 @@ npm i narrowing  # yarn add narrowing
 
 ```typescript
 let a: unknown;
+
 if (isXXX(a)) {
   // TypeScritp know your type here!
 }
@@ -38,25 +39,29 @@ Basic:
 
 Advanced:
 
+These functions help you make advanced type gurads.
+
 - [has](#has)
 - [kind](#kind)
-- [isValidObject](#isvalidobject)
+- [literal](#literal)
+- [schema](#schema)
+
+### basic examples
 
 ```typescript
 import {
-  isString,
-  isNumber,
+  isArray,
   isBigInt,
   isBoolean,
-  isSymbol,
-  isUndefined,
-  isNull,
   isFunction,
   isInstance,
-  isArray,
   isNil,
-  has,
-  kind
+  isNull,
+  isNumber,
+  isObject,
+  isString,
+  isSymbol,
+  isUndefined
 } from 'narrowing';
 
 let a: unknown;
@@ -65,31 +70,28 @@ if (isString(a)) a.toLocaleLowerCase();
 if (isNumber(a)) a.toFixed();
 if (isBigInt(a)) a.toString();
 if (isBoolean(a)) a.valueOf();
-if (isSymbol(a)) a.description;
+if (isSymbol(a)) a.toString();
 if (isUndefined(a)) {
   a; // undefined
 }
 if (isNull(a)) {
   a; // null
 }
-
 if (isNil(a)) {
   a; // null | undefined
 }
 
-function test(a: string, b: number): boolean {
+function testFunc(a: string, b: number): boolean {
   return true;
 }
 
-if (isFunction<typeof test>(a)) {
-  a('11', 1);
+if (isFunction<typeof testFunc>(a)) {
+  a('11', 1); // no eror
 }
 
 if (isInstance(a, Date)) {
   a.getFullYear();
 }
-
-isInstance(a, DelayNode);
 
 class TestClass {
   m() {}
@@ -108,11 +110,18 @@ let b: TestClass | undefined | null;
 if (!isNil(b)) {
   b.m(); // no Error any more
 }
+
+if (isObject(a)) {
+  //   let a: {
+  //     [key: string]: unknown;
+  //   };
+  a;
+}
 ```
 
-## `has()`
+### `has()`
 
-check if a type has a property
+Check if a type has a property
 
 [TypeScript Handbook / Using type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates)
 
@@ -123,7 +132,7 @@ type Dog = { run: () => {} };
 
 let pet = {} as any;
 
-// type predicates
+// save these type guards somewhere and reuse them
 const isBird = has<Bird>('fly');
 const isDogOrCat = has<Dog | Cat>('run');
 const isCat = has<Cat>('run', 'meow');
@@ -141,7 +150,7 @@ if (isCat(pet)) {
 }
 ```
 
-## `kind()`
+### `kind()`
 
 [TypeScript handbook / Discriminated unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)
 
@@ -179,27 +188,23 @@ if (isCircle(s)) {
 }
 ```
 
-## `isValidObject()`
-
-Basic schema validation
+### `literal()`
 
 ```ts
-let testObj: any = {};
-
-const schema = {
-  x: isNumber,
-  str: isString
-};
-
-if (isValidObject(testObj, schema)) {
-  /*
-    now typescript know your testObj type is
-    let testObj: { x: number; str: string; }
-   */
+const is404 = literal(404);
+let code = 200;
+if (is404(code)) {
+  // code's type should be 404 , not number
+  // let code: 404
+  code;
 }
 ```
 
-custom validator
+this is useful when you see `schema()`
+
+### `schema()`
+
+Basic schema validation
 
 ```ts
 let message: unknown = {
@@ -212,23 +217,18 @@ let message: unknown = {
   ]
 };
 
-const messageSchema = {
-  // custom validator
-  code: (value: unknown): value is 200 => {
-    return value === 200;
-  },
+const isSuccess = schema({
+  code: literal(200),
   msg: isString,
   records: isArray
-};
+});
 
-if (isValidObject(message, messageSchema)) {
-  /*
-        let message: {
-            code: 200;
-            msg: string;
-            records: unknown[];
-        }
-  */
+if (isSuccess(message)) {
+  // let message: {
+  //     code: 200;
+  //     msg: string;
+  //     records: unknown[];
+  // }
   message;
 }
 ```
@@ -243,3 +243,6 @@ if (isValidObject(message, messageSchema)) {
   - add `kind()`
 - 1.3.0
   - add `isObject()`, `isValidObject()`
+- 1.4.0
+  - replace ~~`isValidObject()`~~ with `schema()`
+  - add `schema()`

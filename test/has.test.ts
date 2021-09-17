@@ -1,7 +1,27 @@
+import { has } from '../src/index';
+
 type Fish = { swim: () => {} };
 type Bird = { fly: () => {}; mm: 123 };
+type Cat = { run: () => {}; meow: () => {} };
+type Dog = { run: () => {} };
 
-import { has } from '../src/index';
+let pet = {} as any;
+
+const isBird = has<Bird>('fly');
+const isDogOrCat = has<Dog | Cat>('run');
+const isCat = has<Cat>('run', 'meow');
+
+if (isBird(pet)) {
+  pet.fly();
+}
+
+if (isDogOrCat(pet)) {
+  pet.run();
+}
+
+if (isCat(pet)) {
+  pet.meow();
+}
 
 test('has', () => {
   function getPet(): any {
