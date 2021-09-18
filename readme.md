@@ -45,7 +45,7 @@ These functions help you make advanced type gurads.
 - [has](#has)
 - [kind](#kind)
 - [literal](#literal)
-- [schema](#schema)
+- [schema](#schema) (💪 `cool`)
 
 ### basic examples
 
