@@ -1,6 +1,7 @@
 # 🤖 Narrowing
 
 [![npm](https://img.shields.io/npm/v/narrowing.svg)](https://www.npmjs.com/package/narrowing)
+[![npm](https://img.shields.io/npm/dt/narrowing)](https://www.npmjs.com/package/narrowing)
 
 TypeScript tiny [narrowing ](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) helpers you better use.
 
