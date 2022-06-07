@@ -84,7 +84,7 @@ export function schema<T>(schema: SchemaType<T>): Predicate<T> {
   return function (value: unknown): value is T {
     if (isObject(value)) {
       for (let k in schema) {
-        if (!value[k]) return false;
+        if (!value.hasOwnProperty(k)) return false;
         if (!schema[k](value[k])) return false;
       }
       return true;
