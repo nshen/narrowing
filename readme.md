@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/narrowing.svg)](https://www.npmjs.com/package/narrowing)
 [![npm](https://img.shields.io/npm/dt/narrowing)](https://www.npmjs.com/package/narrowing)
 
-TypeScript tiny [narrowing ](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) helpers you better use.
+TypeScript tiny [narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) helpers you better use.
 
 ## Install
 
@@ -253,9 +253,7 @@ if (isTestInterface(message)) {
 }
 ```
 
-````
-
-### `every()
+### `every()`
 
 Runtime array type validation. Checks each element of an array.
 
@@ -264,7 +262,7 @@ let arr: unknown[] = [1, 2, 3];
 if (every(isNumber)(arr)) {
   let typeCheck: number[] = arr;
 }
-````
+```
 
 Works with any narrowing validator, including schemas.
 
@@ -286,8 +284,6 @@ if (every(isTestInterface)(arr)) {
 }
 ```
 
-```
-
 ## Version
 
 - 1.1.0
@@ -301,4 +297,5 @@ if (every(isTestInterface)(arr)) {
 - 1.4.0
   - replace ~~`isValidObject()`~~ with `schema()`
   - add `literal()`
-```
+- 1.5.0
+  - add `every()`
