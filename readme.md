@@ -234,6 +234,27 @@ if (isSuccess(message)) {
 }
 ```
 
+schema supports a type argument for associating a schema with an existing type
+
+```ts
+interface TestInterface {
+  id: number;
+  name: string;
+}
+
+const isTestInterface = schema<TestInterface>({
+  id: isNumber,
+  name: isString
+});
+
+if (isTestInterface(message)) {
+  // let message: TestInterface
+  message;
+}
+```
+
+````
+
 ### `every()
 
 Runtime array type validation. Checks each element of an array.
@@ -243,7 +264,7 @@ let arr: unknown[] = [1, 2, 3];
 if (every(isNumber)(arr)) {
   let typeCheck: number[] = arr;
 }
-```
+````
 
 Works with any narrowing validator, including schemas.
 
