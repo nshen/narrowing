@@ -17,7 +17,7 @@ npm i narrowing  # yarn add narrowing
 let a: unknown;
 
 if (isXXX(a)) {
-  // TypeScritp know your type here!
+  // TypeScript know your type here!
 }
 ```
 
@@ -40,7 +40,7 @@ Basic:
 
 Advanced:
 
-These functions help you make advanced type gurads.
+These functions help you make advanced type guards.
 
 - [has](#has)
 - [kind](#kind)
@@ -87,7 +87,7 @@ function testFunc(a: string, b: number): boolean {
 }
 
 if (isFunction<typeof testFunc>(a)) {
-  a('11', 1); // no eror
+  a('11', 1); // no error
 }
 
 if (isInstance(a, Date)) {
@@ -234,6 +234,60 @@ if (isSuccess(message)) {
 }
 ```
 
+schema supports a type argument for associating a schema with an existing type
+
+```ts
+interface TestInterface {
+  id: number;
+  name: string;
+}
+
+const isTestInterface = schema<TestInterface>({
+  id: isNumber,
+  name: isString
+});
+
+if (isTestInterface(message)) {
+  // let message: TestInterface
+  message;
+}
+```
+
+````
+
+### `every()
+
+Runtime array type validation. Checks each element of an array.
+
+```ts
+let arr: unknown[] = [1, 2, 3];
+if (every(isNumber)(arr)) {
+  let typeCheck: number[] = arr;
+}
+````
+
+Works with any narrowing validator, including schemas.
+
+```ts
+interface TestInterface {
+  id: number;
+  name: string;
+}
+
+const isTestInterface = schema<TestInterface>({
+  id: isNumber,
+  name: isString
+});
+
+let arr: unknown[] = [{ id: 1, name: 'aaa' }];
+
+if (every(isTestInterface)(arr)) {
+  let typeCheck: TestInterface[] = arr;
+}
+```
+
+```
+
 ## Version
 
 - 1.1.0
@@ -247,3 +301,4 @@ if (isSuccess(message)) {
 - 1.4.0
   - replace ~~`isValidObject()`~~ with `schema()`
   - add `literal()`
+```

@@ -92,3 +92,12 @@ export function schema<T>(schema: SchemaType<T>): Predicate<T> {
     return false;
   };
 }
+
+export function every<T>(predicate: Predicate<T>): Predicate<T[]> {
+  return function (value: unknown): value is T[] {
+    if (Array.isArray(value)) {
+      return value.every(predicate);
+    }
+    return false;
+  };
+}
