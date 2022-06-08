@@ -17,7 +17,7 @@ npm i narrowing  # yarn add narrowing
 let a: unknown;
 
 if (isXXX(a)) {
-  // TypeScritp know your type here!
+  // TypeScript know your type here!
 }
 ```
 
@@ -40,7 +40,7 @@ Basic:
 
 Advanced:
 
-These functions help you make advanced type gurads.
+These functions help you make advanced type guards.
 
 - [has](#has)
 - [kind](#kind)
@@ -87,7 +87,7 @@ function testFunc(a: string, b: number): boolean {
 }
 
 if (isFunction<typeof testFunc>(a)) {
-  a('11', 1); // no eror
+  a('11', 1); // no error
 }
 
 if (isInstance(a, Date)) {
