@@ -234,6 +234,39 @@ if (isSuccess(message)) {
 }
 ```
 
+### `every()
+
+Runtime array type validation. Checks each element of an array.
+
+```ts
+let arr: unknown[] = [1, 2, 3];
+if (every(isNumber)(arr)) {
+  let typeCheck: number[] = arr;
+}
+```
+
+Works with any narrowing validator, including schemas.
+
+```ts
+interface TestInterface {
+  id: number;
+  name: string;
+}
+
+const isTestInterface = schema<TestInterface>({
+  id: isNumber,
+  name: isString
+});
+
+let arr: unknown[] = [{ id: 1, name: 'aaa' }];
+
+if (every(isTestInterface)(arr)) {
+  let typeCheck: TestInterface[] = arr;
+}
+```
+
+```
+
 ## Version
 
 - 1.1.0
@@ -247,3 +280,4 @@ if (isSuccess(message)) {
 - 1.4.0
   - replace ~~`isValidObject()`~~ with `schema()`
   - add `literal()`
+```
