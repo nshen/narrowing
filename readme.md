@@ -46,6 +46,7 @@ These functions help you make advanced type guards.
 - [kind](#kind)
 - [literal](#literal)
 - [schema](#schema) (💪 `cool`)
+- [every](#every) (💪 `cool`)
 
 ### basic examples
 
